@@ -28,6 +28,11 @@ console_color::ConsoleColorGuard::ConsoleColorGuard():
 
 console_color::ConsoleColorGuard::~ConsoleColorGuard()
 {
+	Reset();
+}
+
+void console_color::ConsoleColorGuard::Reset()
+{
 	current_color = color;
 	SetConsoleTextAttribute(hConsole, color);
 }

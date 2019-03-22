@@ -55,6 +55,8 @@ namespace console_color
 	public:
 		ConsoleColorGuard();
 		~ConsoleColorGuard();
+
+		void Reset();
 	private:
 		WORD color;
 	};

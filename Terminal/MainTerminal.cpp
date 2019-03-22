@@ -1,22 +1,23 @@
+
 #include "pch.h"
 #include "MainTerminal.h"
+using namespace console_color;
 
 TERMINAL_COMMAND(test)
 {
-	COMMAND_OUT << "inter the number\n";
+	ConsoleColorGuard guard;
+	COMMAND_OUT << TXT_CYAN << "enter the number\n";
 	std::string a;
+	guard.Reset();
 	COMMAND_IN >> a;
 	COMMAND_OUT << "your number is " <<a << '\n';
 	return "";
 }
 
+
 MainTerminal::MainTerminal():
-	terminal("MAIN", std::cin, std::cout)
+	Terminal("MAIN", std::cin, std::cout)
 {
-	terminal.AddCommand("test", test);
+	AddCommand("test", test);
 }
 
-void MainTerminal::Lounch()
-{
-	terminal.Lounch();
-}
