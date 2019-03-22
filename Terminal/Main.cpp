@@ -12,6 +12,8 @@ int main(int argc, char* argv[])
 	{
 		std::cout << "| " << argv[i] << '\n';
 	}
+	std::cout << '\n';
+
 	MainTerminal terminal;
 	if (argc == 2)
 	{

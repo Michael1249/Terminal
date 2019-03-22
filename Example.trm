@@ -1,0 +1,8 @@
+// Test macros, that displays self body
+/var path
+path <= Imported\Example.trm
+/var value
+value <= /fread path
+value
+/~var path
+/~var value

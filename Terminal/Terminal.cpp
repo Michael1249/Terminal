@@ -134,6 +134,10 @@ void Terminal::AskForCommand()
 void ns_terminal::Terminal::Import(std::string path)
 {
 	buffer.AddMacros(FileToString(path));
+	size_t index = path.rfind('\\');
+	std::string file_name = "Imported" + path.substr(index, path.size() - index);
+	command_args_t args {"", file_name, path};
+	AddVar(this, args);
 }
 
 void ns_terminal::Terminal::Launch()
