@@ -5,8 +5,8 @@
 //Some macroses to use inside Terminal command
 
 // use this inside TERMINAL_COMMAND body only
-#define OUT_STREAM (*terminal->GetOutputStream())
-#define IN_STREAM (*terminal->GetInputStream())
+#define OUT_STREAM (*terminal->getOutputStream())
+#define IN_STREAM (*terminal->getInputStream())
 #define COMMAND_OUT OUT_STREAM << args[0] << ">> "
 #define COMMAND_IN OUT_STREAM << args[0] << "<< "; IN_STREAM 
 
@@ -19,6 +19,7 @@ if (args.size() != expected + 1)	\
 	str += std::to_string(expected);	\
 	throw std::exception(str.c_str());	\
 }
+
 #define CHECK_ARGUMENTS_NUMBER_BIGGER_THEN(expected)	\
 if (args.size() <= expected + 1)	\
 {	\
@@ -45,17 +46,17 @@ namespace ns_terminal
 	class SimpleCommandDelegate : public ICommandDelegate
 	{
 	public:
-		SimpleCommandDelegate(command_t func);
+		SimpleCommandDelegate(command_ptr_t func);
 		TERMINAL_COMMAND(operator());
 	private:
-		command_t command;
+		command_ptr_t command;
 	};
 
 	//macrocommand which insert self body (string) in terminal buffer
 	class MacroCommandDelegate : public ICommandDelegate
 	{
 	public:
-		MacroCommandDelegate(std::string body);
+		MacroCommandDelegate(const std::string& body);
 		TERMINAL_COMMAND(operator());
 	private:
 		std::string command_body;
@@ -65,20 +66,23 @@ namespace ns_terminal
 	template<class T>
 	class MemberCommandDelegate : public ICommandDelegate
 	{
-		using m_command_t = TERMINAL_COMMAND((T::*));
+		using m_command_ptr_t = TERMINAL_COMMAND((T::*));
 	public:
 		MemberCommandDelegate() = delete;
-		MemberCommandDelegate(T* obj, m_command_t  m_func) :
+
+		MemberCommandDelegate(T* obj, m_command_ptr_t  m_func) :
 			m_command(m_func),
 			target(obj)
 		{
 		}
+
 		TERMINAL_COMMAND(operator())
 		{
 			return (target->*m_command)(terminal, args);
 		}
+
 	private:
-		m_command_t m_command;
+		m_command_ptr_t m_command;
 		T* target;
 	};
 }

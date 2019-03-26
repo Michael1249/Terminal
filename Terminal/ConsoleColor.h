@@ -22,6 +22,7 @@ namespace console_color
 		TXT_YELLOW,
 		TXT_WHITE
 	};
+
 	enum BG {
 		BG_BLACK,
 		BG_BLUE = 1 << 4,
@@ -40,6 +41,7 @@ namespace console_color
 		BG_YELLOW,
 		BG_WHITE
 	};
+
 	static HANDLE hConsole = GetStdHandle(STD_OUTPUT_HANDLE);
 
 	const WORD TXT_BIT_MASK = 0xF;
@@ -48,7 +50,7 @@ namespace console_color
 	static WORD current_color = BG_BLACK | TXT_LIGHTGRAY;
 	ostream& operator<<(ostream&, TXT);
 	ostream& operator<<(ostream&, BG);
-	void SetConsoleColor(WORD);
+	void setConsoleColor(WORD);
 
 	class ConsoleColorGuard
 	{
@@ -56,7 +58,7 @@ namespace console_color
 		ConsoleColorGuard();
 		~ConsoleColorGuard();
 
-		void Reset();
+		void reset();
 	private:
 		WORD color;
 	};

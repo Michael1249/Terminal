@@ -13,7 +13,7 @@ namespace ns_terminal
 		const std::string& Value() const;
 		std::string& Value();
 
-		bool Exist();
+		bool isExist();
 	private:
 		std::string* val;
 		bool exist;

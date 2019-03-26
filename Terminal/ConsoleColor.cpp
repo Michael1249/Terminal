@@ -1,4 +1,3 @@
-#include "pch.h"
 #include "ConsoleColor.h"
 using namespace console_color;
 
@@ -16,7 +15,7 @@ ostream & console_color::operator<<(ostream &out, BG color)
 	return out;
 }
 
-void console_color::SetConsoleColor(WORD color)
+void console_color::setConsoleColor(WORD color)
 {
 	current_color = color;
 	SetConsoleTextAttribute(hConsole, current_color);
@@ -28,10 +27,10 @@ console_color::ConsoleColorGuard::ConsoleColorGuard():
 
 console_color::ConsoleColorGuard::~ConsoleColorGuard()
 {
-	Reset();
+	reset();
 }
 
-void console_color::ConsoleColorGuard::Reset()
+void console_color::ConsoleColorGuard::reset()
 {
 	current_color = color;
 	SetConsoleTextAttribute(hConsole, color);

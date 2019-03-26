@@ -11,7 +11,7 @@ namespace ns_terminal
 		TerminalBuf(const TerminalBuf&) = delete;
 		TerminalBuf(std::istream*, std::ostream*);
 
-		void AddMacros(const std::string&);
+		void addMacros(const std::string&);
 
 		int uflow() override;
 		int underflow() override;

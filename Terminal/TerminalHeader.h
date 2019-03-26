@@ -14,7 +14,7 @@ namespace ns_terminal
 	class MemberCommandDelegate;
 
 	using command_args_t = std::vector<std::string>;
-	using command_t = TERMINAL_COMMAND((*));
+	using command_ptr_t = TERMINAL_COMMAND((*));
 	using command_list_t = std::map < std::string, ICommandDelegate* >;
 	using variable_container_t = std::multimap<std::string, std::string>;
 }

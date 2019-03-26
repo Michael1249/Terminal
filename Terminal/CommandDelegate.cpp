@@ -1,19 +1,18 @@
-#include "pch.h"
 #include "CommandDelegate.h"
 
-ns_terminal::MacroCommandDelegate::MacroCommandDelegate(std::string body) :
+ns_terminal::MacroCommandDelegate::MacroCommandDelegate(const std::string& body) :
 	command_body(body)
 {
 }
 
-ns_terminal::SimpleCommandDelegate::SimpleCommandDelegate(command_t func) :
+ns_terminal::SimpleCommandDelegate::SimpleCommandDelegate(command_ptr_t func) :
 	command(func)
 {
 }
 
 TERMINAL_COMMAND(ns_terminal::MacroCommandDelegate::operator())
 {
-	terminal->GetBuffer().AddMacros(this->command_body);
+	terminal->getBuffer().addMacros(this->command_body);
 	return "";
 }
 

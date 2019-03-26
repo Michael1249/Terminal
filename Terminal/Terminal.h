@@ -10,7 +10,7 @@
 namespace ns_terminal
 {
 	
-	//standart commands
+	//standard commands
 	TERMINAL_COMMAND(Comment);
 	TERMINAL_COMMAND(Help);
 	TERMINAL_COMMAND(Exit);
@@ -29,46 +29,45 @@ namespace ns_terminal
 		Terminal(const Terminal&) = delete;
 		virtual ~Terminal();
 
-		Terminal(std::string name, std::istream& input, std::ostream& output);
-		Terminal(std::string name, std::istream& input, std::ostream& output, const command_list_t& init_list);
+		Terminal(const std::string& name, std::istream& input, std::ostream& output);
+		Terminal(const std::string& name, std::istream& input, std::ostream& output, const command_list_t& init_list);
 
 		//read input (buffer)
-		void AskForCommand();
+		void askForCommand();
 
-		void Import(std::string path);
+		void importFile(const std::string& path);
 
 		//add SimpleCommandDelegate
-		void AddCommand(std::string name, command_t command);
+		void addCommand(const std::string& name, command_ptr_t command);
 
 		//add MemberCommandDelegate
 		template<class T, typename T_command>
-		void AddCommand(std::string name, T* obj, T_command command);
+		void addCommand(const std::string& name, T* obj, T_command command);
 
 		//add MacroCommandDelegate
-		void AddMacroCommand(std::string name, std::string macros_body);
+		void addMacroCommand(const std::string& name, std::string macros_body);
 
-		void Launch();
-		void Finish();
+		void launch();
+		void finish();
 
-		TerminalVariable GetVariable(std::string& var_name);
-		bool RemoveVariable(std::string& var_name);
+		TerminalVariable getVariable(std::string& var_name);
+		bool removeVariable(std::string& var_name);
 
-		std::istream* GetInputStream() const;
-		std::ostream* GetOutputStream() const;
+		std::istream* getInputStream() const;
+		std::ostream* getOutputStream() const;
 
-		const std::string& GetName() const;
+		const std::string& getName() const;
 		
-		const command_list_t& GetCommandList() const;
+		const command_list_t& getCommandList() const;
 		
-		TerminalBuf& GetBuffer();
+		TerminalBuf& getBuffer();
 
-		variable_container_t& GetMemory();
+		variable_container_t& getMemory();
 		
-		bool IsLounched() const;
+		bool isLounched() const;
 
 		//convert arg array back to string
-		static void ArgsToString(size_t begin, command_args_t& args, std::string& str);
-		static std::string FileToString(std::string& path);
+		static void argsToString(size_t begin, command_args_t& args, std::string& str);
 
 	private:
 		std::string terminal_name;
@@ -85,16 +84,18 @@ namespace ns_terminal
 
 		bool is_lounched;
 
-		void AddInternCommand();
+		void addInternCommand();
 
-		void UnknownCommand(std::string);
+		void unknownCommand(std::string);
 	};
 
 
 }
 
+std::string fileToString(const std::string& path);
+
 template<class T, typename T_command>
-void ns_terminal::Terminal::AddCommand(std::string name, T* obj, T_command command)
+void ns_terminal::Terminal::addCommand(const std::string& name, T* obj, T_command command)
 {
 	command_list[name] = new MemberCommandDelegate<T>(obj, command);
 }

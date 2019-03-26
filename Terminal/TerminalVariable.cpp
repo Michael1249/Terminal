@@ -1,4 +1,3 @@
-#include "pch.h"
 #include "TerminalVariable.h"
 
 ns_terminal::TerminalVariable::TerminalVariable(std::string& var_name, variable_container_t & memory)
@@ -39,7 +38,7 @@ std::string & ns_terminal::TerminalVariable::Value()
 }
 
 
-bool ns_terminal::TerminalVariable::Exist()
+bool ns_terminal::TerminalVariable::isExist()
 {
 	return exist;
 }

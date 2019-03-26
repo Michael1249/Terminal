@@ -1,4 +1,3 @@
-#include "pch.h"
 #include "TerminalBuf.h"
 
 
@@ -8,7 +7,7 @@ ns_terminal::TerminalBuf::TerminalBuf(std::istream* input, std::ostream* output)
 {
 }
 
-void ns_terminal::TerminalBuf::AddMacros(const std::string& body)
+void ns_terminal::TerminalBuf::addMacros(const std::string& body)
 {
 	for (auto iter = body.rbegin(); iter != body.rend(); iter++)
 	{
